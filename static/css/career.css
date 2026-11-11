@@ -1,0 +1,130 @@
+:root {
+    --purple: #905eb4;
+    --grey: #e2e2e2;
+    --white: #ffffff;
+    --dark-grey: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--grey);
+    color: var(--dark-grey);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--purple);
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Align H1 in Center */
+h1 {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0; /* ✅ No extra space above */
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Home button aligned to right */
+header a {
+    background-color: var(--white);
+    color: var(--purple);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+header a:hover {
+    background-color: var(--dark-purple);
+    color: var(--white);
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: var(--purple);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    border-bottom: 3px solid var(--purple);
+    padding-bottom: 5px;
+}
+
+/* Images */
+img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background: var(--grey);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+/* Links */
+a {
+    color: var(--purple);
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    header {
+        font-size: 1.2rem;
+        padding: 15px;
+    }
+
+    header a {
+        font-size: 0.9rem;
+    }
+}

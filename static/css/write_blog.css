@@ -1,0 +1,139 @@
+/* General Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #ae83d5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 700px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Blog Guidelines Section */
+.blog-guidelines {
+    background: #fff8e1;
+    border-left: 6px solid #ff9800;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.blog-guidelines h3 {
+    color: #d35400;
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.blog-guidelines ul {
+    padding-left: 20px;
+}
+
+.blog-guidelines ul li {
+    margin-bottom: 5px;
+    color: #444;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #4CAF50;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}
+
+/* File Input */
+input[type="file"] {
+    display: block;
+    margin-top: 5px;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    background: #905ad3;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-submit:hover {
+    background: #7334a9;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    input[type="text"],
+    textarea {
+        font-size: 14px;
+    }
+
+    .btn-submit {
+        font-size: 14px;
+    }
+}

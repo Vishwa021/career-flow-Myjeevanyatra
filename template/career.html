@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Career Resources</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/career.css" %}">
+</head>
+<body>
+    {% if careers %}
+        <header>
+            <h1>{{careers.title}}</h1>
+            <a href="{% url 'index' %}">Home</a>
+        </header>
+        <div class="container">
+            <section>
+                <h2>What is {{careers.title}}?</h2>
+                <img src="{{careers.image.url}}" alt="Data Science">
+                <p>{{careers.What_is_it_about}}</p>
+            </section>
+            <section>
+                <h2>Inspiration to Get Started</h2>
+                
+                <p>{{careers.Inspiration_to_start.Why}},{{careers.Inspiration_to_start.Impact}}</p>
+            </section>
+            <section>
+                <h2>Famous Persons</h2>
+                
+                <ul>
+                    {% for person in careers.famous_person %}
+                    <li><strong>{{person.Name}}</strong> - {{person.Contribution}}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <section>
+                <h2>Essential Skills</h2>
+                
+                <p>Master these essential skills to become a successful in {{careers.title}}.</p>
+                <ul>
+                    {% for field in careers.Essential_skills.Fields %}
+                    <li>{{field}}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <section>
+                <h2>Career Opportunities</h2>
+                
+                <p>Discover various roles available in the field of {{careers.title}}.</p>
+                <ul>
+                    {% for opp in careers.Career_Oppertunities %}
+                    <li><strong>{{opp.JobTitle}}</strong> - {{opp.Description}}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <section>
+                <h2>Learn More</h2>
+                
+                <p>Explore books, courses, and online resources to deepen your understanding of data science.</p>
+                <ul>
+                    <li><strong>Online Courses</strong></li>
+                    {% for item in careers.learn_more.OnlineCourses %}
+                        <li><a href="{{item}}">{{item}}</a></li>
+                    {% endfor %}
+                    <li><strong>Books</strong></li>
+                    {% for book in careers.learn_more.Books %}
+                        <li>{{book}}</li>
+                    {% endfor %}    
+                    <li><strong>YouTube Channels</strong></li>
+                    {% for yout in careers.learn_more.YouTubeChannels %}
+                        <li>{{yout}}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    {% endif %}
+</body>
+</html>

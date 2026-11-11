@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/test.css' %}">
+    
+    
+</head>
+<body>
+
+    <header>
+        <h1>Aptitude Test</h1>
+        <a href="{% url 'index' %}">Home</a>
+    </header>
+    <form action="{% url 'questions:submit_test' %}" method="post">
+        {% csrf_token %}
+        
+        {% for category, question_list in questions.items %}
+            <h2>{{ category }}</h2>  <!-- Category name -->
+            {% for qst in question_list %}
+                <div class="question">
+                    <label>{{ qst.Question }}</label><br>
+                    <select name="{{ qst.Q_name }}">
+                        <option value="">Select an option</option>
+                        <option value="a">A.{{ qst.op_1 }}</option>
+                        <option value="b">B.{{ qst.op_2 }}</option>
+                        <option value="c">C.{{ qst.op_3 }}</option>
+                        <option value="d">D.{{ qst.op_4 }}</option>
+                    </select>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

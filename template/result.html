@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Result</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Test Results</h1>
+        <a href="{% url 'index' %}">Home</a>
+    </header>
+    <canvas id="barChart"></canvas>
+
+    <script>
+        var categories = JSON.parse('{{ categories_json|escapejs }}');
+        var scores = JSON.parse('{{ scores_json|escapejs }}');
+    
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Your Score',
+                    data: scores,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10  // ✅ Set the maximum y-axis value to 10
+                    }
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

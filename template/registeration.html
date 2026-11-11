@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Registration{% endblock title %}
+
+{% block body %}
+  <div class="container">
+    <div class="title">Myjeevanyatra</div>
+    <div class="content">
+      <form id="registrationForm" action="{% url 'registeration' %}" method="POST">
+        {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your name" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="number" id="phone" required name="phone" placeholder="Phone No." class="textBox" oninput="this.value = this.value.slice(0, 10)">
+          </div>
+
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" id="pass1" name="pass1" placeholder="Enter your password" required>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" id="pass2" name="pass2" placeholder="Confirm your password" required>
+          </div>
+        </div>
+
+        <div class="gender-details">
+          <input type="radio" name="gender" id="dot-1" value="Male">
+          <input type="radio" name="gender" id="dot-2" value="Female">
+          <input type="radio" name="gender" id="dot-3" value="Other">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <label for="dot-1"><span class="dot one"></span><span class="gender">Male</span></label>
+            <label for="dot-2"><span class="dot two"></span><span class="gender">Female</span></label>
+            <label for="dot-3"><span class="dot three"></span><span class="gender">Prefer not to say</span></label>
+          </div>
+        </div>
+
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Stop default form submission if validation fails
+  
+      let fullname = document.getElementById("fullname");
+      let username = document.getElementById("username");
+      let email = document.getElementById("email");
+      let phone = document.getElementById("phone");
+      let pass1 = document.getElementById("pass1");
+      let pass2 = document.getElementById("pass2");
+      let genderRadios = document.getElementsByName("gender");
+  
+      let isValid = true; // Form validity flag
+  
+      // ✅ Full Name Validation (At least two words, only letters & spaces)
+      if (!/^[a-zA-Z]+(\s+[a-zA-Z]+)+$/.test(fullname.value.trim())) {
+          alert("Invalid Name! Full Name must contain at least two words with only letters and spaces.");
+          fullname.style.border = "2px solid red";
+          isValid = false;
+      } else {
+          fullname.style.border = "";
+      }
+  
+      // ✅ Username Validation (Letters, numbers, underscores, min 3 characters)
+      if (!/^\w{3,}$/.test(username.value)) {
+          alert("Invalid Username! Use only letters, numbers, or underscores (min 3 chars).");
+          username.style.border = "2px solid red";
+          isValid = false;
+      } else {
+          username.style.border = "";
+      }
+  
+      // ✅ Email Validation (Mandatory number before @, allows dots and underscores)
+      if (!/^[a-zA-Z0-9._]+[0-9]+@(gmail|microsoft|yahoo|outlook|icloud|zoho)\.com$/.test(email.value.trim())) {
+          alert("Invalid Email! It must contain at least one number before '@' and be from a valid provider (gmail, microsoft, yahoo, etc.) with '.com'.");
+          email.style.border = "2px solid red";
+          isValid = false;
+      } else {
+          email.style.border = "";
+      }
+  
+      // ✅ Phone Number Validation (Exactly 10 digits)
+      if (!/^\d{10}$/.test(phone.value)) {
+          alert("Invalid Phone Number! Enter exactly 10 digits.");
+          phone.style.border = "2px solid red";
+          isValid = false;
+      } else {
+          phone.style.border = "";
+      }
+  
+      // ✅ Password Validation (Minimum 8 characters)
+      if (pass1.value.length < 8) {
+          alert("Password must be at least 8 characters long.");
+          pass1.style.border = "2px solid red";
+          isValid = false;
+      } else {
+          pass1.style.border = "";
+      }
+  
+      // ✅ Confirm Password Validation (Matches Password)
+      if (pass1.value !== pass2.value) {
+          alert("Passwords do not match!");
+          pass2.style.border = "2px solid red";
+          isValid = false;
+      } else {
+          pass2.style.border = "";
+      }
+
+      // Validate Gender Selection
+      let genderSelected = false;
+      for (let i = 0; i < genderRadios.length; i++) {
+          if (genderRadios[i].checked) {
+              genderSelected = true;
+              break;
+          }
+      }
+
+      if (!genderSelected) {
+          alert("Please select your gender.");
+          isValid = false;
+      }
+  
+      // ✅ Submit the form if all fields are valid
+      if (isValid) {
+          alert("Registration Submitted! Wait for Server Response.");
+          this.submit();
+      }
+  });
+  
+  </script>
+{% endblock body %}

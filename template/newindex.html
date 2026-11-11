@@ -1,0 +1,273 @@
+{% extends "base2.html" %}
+
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+
+{% block header %}
+<div class = "header-content flex-center">
+    <h1>Creativity is Alllowing Yourself to make Mistakes</h1>
+    <p class = "text">Explore various career options in our website which will empower your knowledge. Take tests and know that where your best at!</p>
+    <p class = "text">Start with testing Yourself</p>
+    <div class = "btn-group">
+        <button type = "button" class = "btn btn-purple" onclick="location.href='#Test'">get started</button>
+    </div>
+</div>
+{% endblock header %}
+<!-- end of header -->
+
+{% block body %}
+
+<!-- section 1 -->
+<section class="sec-1 py-3" id="section-1">
+    <div class="container">
+        <div class="sec-item">
+            <span>
+                <i class="fa fa-user"></i>
+            </span>
+            <h2>{{ user_count }}</h2>
+            <p>Users in database</p>
+        </div>
+        <div class="sec-item">
+            <span>
+                <i class="fa fa-briefcase"></i>
+            </span>
+            <h2>{{ career_count }}</h2>
+            <p>Career posts</p>
+        </div>
+    </div>
+</section>
+<!-- end of section 1 -->
+
+<!-- section 2 -->
+<section class = "sec-2 py-3" id = "section-2">
+        <div class = "container">
+            <div class = "sec-item">
+                <div>
+                    <span class = "flex-center">
+                        <i class = "fa fa-cog"></i>
+                    </span>
+                    <h3 class = "md-title">Empowering Students with Knowledge </h3>
+                </div>
+                <p class = "text">The platform provides students with valuable career insights, helping them explore various career paths, trends, and opportunities to make informed decisions about their future.</p>
+            </div>
+            <div class = "sec-item">
+                <div>
+                    <span class = "flex-center">
+                        <i class = "fa fa-globe"></i>
+                    </span>
+                    <h3 class = "md-title">User-Generated Blogs & Knowledge Sharing</h3>
+                </div>
+                <p class = "text"> Users can share their experiences, insights, and expertise through blogs, contributing to a community-driven knowledge hub that inspires and educates others.</p>
+            </div>
+            <div class = "sec-item">
+                <div>
+                    <span class = "flex-center">
+                        <i class = "fa fa-location-arrow"></i>
+                    </span>
+                    <h3 class = "md-title">Take Tests and Know Your Interests </h3>
+                </div>
+                <p class = "text">The platform offers career assessment tests to help users discover their strengths, interests, and potential career paths, providing personalized recommendations based on their results.</p>
+            </div>
+            <div class = "sec-item">
+                <div>
+                    <span class = "flex-center">
+                        <i class = "fa fa-clock"></i>
+                    </span>
+                    <h3 class = "md-title">Continuous Learning & Community Engagement</h3>
+                </div>
+                <p class = "text">Through blogs, discussions, and real-life experiences shared by others, users can continuously learn, network, and stay updated with evolving career opportunities.</p>
+            </div>
+        </div>
+</section>
+<!-- end of section 2 -->
+
+
+<!-- section 3 -->
+<section class="sec-3 py-3" id="Career">
+    <h1 class="lg-title">Careers</h1>
+        <div class="container">
+            {% if careers %}
+                {% for post in careers %}
+                    <div class="sec-item">
+                        <div class="item-top">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'career' post.slug %}" class="md-title">{{ post.title }}</a>
+                            {% else %}
+                                <a class="md-title" onclick="showLoginAlert(event)" >{{post.title}}</a>    
+                            {% endif %}
+
+                            <p class="text">{{ post.What_is_it_about|truncatewords:20 }}</p>
+                        </div>
+                        <div class="item-bottom">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Career Image">
+                            {% else %}
+                                <img src="/static/img/career.png" alt="Default Career Image">
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No career posts yet.</p>
+            {% endif %}
+        </div>
+</section>
+
+<!-- end of section 3 -->
+
+<!-- section 4 -->
+<section class = "sec-4 py-3" id = "section-4">
+<h1 class = "lg-title">Write a Blog & Make an Impact!</h1>
+<div class = "container">
+    <div class = "btn-group">
+        <button type = "button" class = "btn btn-dark" onclick="location.href='#AboutUs'">About us</button>
+        {% if user.is_authenticated %}
+            <button type = "button" class = "btn btn-transparent" onclick="location.href='{% url 'write_blog' %}'">Write Blog</button>
+        {% else %}
+            <button type = "button" class = "btn btn-transparent" onclick="showLoginAlert(event)">Write Blog</button>
+        {% endif %}
+    </div>
+</div>
+</section>
+<!-- end of section 4 -->
+
+
+<!-- section 6 -->
+<section class = "sec-6 py-3" id = "blog">
+<h1 class = "lg-title">Recent Blogposts</h1>
+<div class = "container">
+    {% if blog %}
+        {% for post in blog %}
+            <div class = "sec-item">
+                {% if post.image %}
+                <div class = "item-img">
+                    <img src = "{{ post.image.url }}">
+                </div>
+                {% else %}
+                <div class = "item-img">
+                    <img src = "/static/img/blog.webp">
+                </div>
+                {% endif %}
+                <div class = "item-content">
+                    <h3 class = "md-title">{{post.title}}</h3>
+                    <span>
+                        <i class = "fa fa-clock">{{post.Created_Date}}</i>
+                    </span>
+                    <p class = "text">{{post.content|truncatewords:40}}</p>
+                    {%if user.is_authenticated %}
+                        <a href = "{% url 'blog' post.slug %}" class = "link-hover">Read more<i class = "fa fa-angle-double-right"></i></a>
+                    {% else %}
+                        <a class = "link-hover" onclick="showLoginAlert(event)">Read more<i class = "fa fa-angle-double-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+    <p>No blog posts yet.</p>
+    {% endif %}
+</div>
+{% if messages %}
+    <script>
+        window.onload = function() {
+            {% for message in messages %}
+                alert("{{ message }}");  // Shows a popup with the message
+            {% endfor %}
+        };
+    </script>
+{% endif %}
+</section>
+<!-- end of section 6 -->
+
+<!-- section 10 -->
+<section class = "sec-10 py-3" id = "Test">
+<h1 class = "lg-title">Test Section</h1>
+<div class = "container">
+    <div class = "sec-item">
+        <div class = "item-top">
+            <h2>Take Test</h2>
+            <div>
+                <span>and know your</span>
+                <span>Interest</span>
+            </div>
+        </div>
+        <div class = "item-bottom">
+            {% comment %} <ul>
+                <li>Take test</li>
+                <li>students to know where</li>
+                <li>you are best at</li>
+            </ul> {% endcomment %}
+            {% if user.is_authenticated %}
+                <button type = "button" class = "btn btn-transparent" onclick="window.location.href='{% url 'questions:test' %}'">Take Test</button>
+            {% else %}
+                <button type = "button" class = "btn btn-transparent" onclick="showLoginAlert(event)">Take Test</button>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+</section>
+<!-- end of section 10 -->
+
+ <!-- section 9 -->
+<section class = "sec-9 py-3" id = "AboutUs">
+    <div class = "container">
+        <div class = "sec-item">
+            <div class = "item-content">
+                <h1 class = "lg-title"><strong>About Us</strong></h1>
+                <p class = "text">
+                    MyJeevanYatra is a platform where users can share knowledge and insights through blogs on careers, education, and personal growth. We believe in the power of shared experiences, allowing individuals to express their thoughts, contribute expertise, and help others make informed decisions. Users can write blogs on various topics, submit them for review, and once approved by the admin, their content is published for others to explore. This ensures quality while maintaining an engaging and informative space. Whether you are a student seeking guidance or someone with valuable knowledge to share, MyJeevanYatra provides a space for learning and discussion. Readers can explore diverse topics, gain insights, and expand their understanding. By enabling user-generated content, we create a culture of collaboration and growth. Join us to share your experiences, learn from others, and be part of a community that values wisdom and education.
+                </p>
+            </div>
+            <div class = "item-img">
+                <img src = "/static/img/images/bg-client.jpg">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of section 9 -->
+
+<!-- section 11 -->
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <h3>Contact Us</h3>
+            <p>Email: info@myjeevanyatra.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Address: 123 Career Street, India</p>
+        </div>
+        <div class="footer-content">
+            <h3>Quick Links</h3>
+            <ul class="list">
+                <li><a href="#section-1">Home</a></li>
+                <li><a href="#Career">Career Posts</a></li>
+                <li><a href="#blog">Blogs</a></li>
+                <li><a href="#Test">Test Section</a></li>
+                <li><a href="#AboutUs">About Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-content">
+            <h3>Follow Us</h3>
+            <ul class="social-icons">
+                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <p>&copy; 2024 myjeevanyatra. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- end of section 11 -->
+<script>
+    function showLoginAlert(event) {
+        event.preventDefault();  // Prevents the link from doing anything
+        alert("Please log in to access this content.");
+    }
+</script>
+{% endblock body %}

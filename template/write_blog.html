@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Blog</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/write_blog.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Write a Blog</h1>
+
+        <!-- Blog Writing Guidelines -->
+        <div class="blog-guidelines">
+            <h3>📌 Important Guidelines:</h3>
+            <ul>
+                <li>Your blog should be <strong>informative, engaging, and relevant</strong> to the audience.</li>
+                <li>Avoid <strong>plagiarism</strong>. Ensure that your content is <strong>original and well-written</strong>.</li>
+                <li>Use <strong>proper formatting, headings, and paragraphs</strong> for readability.</li>
+                <li>Offensive, misleading, or inappropriate content will <strong>not be approved</strong>.</li>
+                <li>Once submitted, your blog will be <strong>reviewed by an admin</strong> for approval.</li>
+                <li>You will be <strong>notified upon approval or rejection</strong> when you log in again, <strong>if admin ckecked it out.</strong></li>
+            </ul>
+            <p><strong>🚀 Write your best content and make an impact!</strong></p>
+        </div>
+
+        <form method="POST" action="{% url 'write_blog' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Blog Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter your blog title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Blog Content</label>
+                <textarea id="content" name="content" rows="8" placeholder="Write your blog here..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Upload Image</label>
+                <input type="file" id="image" name="image">
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Blog</button>
+        </form>
+    </div>
+</body>
+</html>

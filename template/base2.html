@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}{% endblock title %} | Myjeevanyatra</title>
+    
+    <!-- bootstrap -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    {% load static %}
+    <link rel = "stylesheet" type="text/css" href = "{% static 'css/base2.css' %}">
+    <link rel = "stylesheet" type="text/css" href = "{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <nav class = "navbar">
+            <div class = "navbar-sm">
+                <a class = "navbar-brand" href = "#">Myjeevanyatra</a>
+                <button class = "navbar-toggler-show" type = "button" id = "navbar-toggler-show">
+                    <i class = "fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class = "navbar-collapse flex-center" id = "navbar-collapse">
+                <button class = "navbar-toggler-close" id = "navbar-toggler-close">
+                    <i class = "fas fa-times"></i>
+                </button>
+                <ul class = "navbar-nav">
+                    <li class = "nav-item">
+                        <a href = "#AboutUs" class = "nav-link">About</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "#Career" class = "nav-link">Careers</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "#blog" class = "nav-link">Blog</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "#Test" class = "nav-link">Test</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class = "nav-item">
+                        <a href = "{% url 'logout' %}" class = "nav-link">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class = "nav-item">
+                        <a href = "{% url 'login' %}" class = "nav-link">Login</a>
+                    </li>
+                    {% endif %}
+                </ul> 
+            </div>
+        </nav>
+        
+        {% block header %}{% endblock header %}
+    </header>
+    {% block body %}{% endblock body %}
+    <!--  -->
+    <script>
+        const navToggleShowBtn = document.getElementById('navbar-toggler-show');
+        const navToggleCloseBtn = document.getElementById('navbar-toggler-close');
+        const navbarCollapseDiv = document.getElementById('navbar-collapse');
+        const navbarDiv = document.querySelector('.navbar');
+
+        navToggleShowBtn.addEventListener('click', () => {
+            navbarCollapseDiv.style.display = "flex";
+        });
+
+        navToggleCloseBtn.addEventListener('click', () => {
+            navbarCollapseDiv.style.display = "none";
+        });
+
+        // hide navbar
+        window.addEventListener('scroll', () => {
+            if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100){
+                navbarDiv.style.display = "none";
+            } else {
+                navbarDiv.style.display = "";
+            }
+        });
+    </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+</body>
+</html>
